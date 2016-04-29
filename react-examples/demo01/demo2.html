@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React</title>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <script type="text/babel">
+    	var Timer = React.createClass({
+            getInitialState: function () {//初始化状态
+                return {secondsElapsed : 0};
+            },
+            tick : function(){ //动作函数
+                this.setState({secondsElapsed: this.state.secondsElapsed+1});
+            },
+            componentDidMount : function(){ //已经把组件插入到dom中之后调用。
+                this.interval = setInterval(this.tick , 1000);
+            },
+            componentWillUnmount : function(){//即将从真实dom中移除之前调用。
+                clearInterval(this.interval);
+            },
+            render : function(){//渲染
+                return (
+                    <div>Seconds Elapsed : {this.state.secondsElapsed}</div>
+                );
+            }
+        });
+        ReactDOM.render(<Timer /> , document.getElementById('container'));
+    </script>
+</body>
+</html>

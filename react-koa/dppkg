@@ -1,0 +1,57 @@
+koa :服务器
+koa-route ： koa路由控制
+koa-static : 静态文件目录
+koa-logger: 日志
+swig ： html模版语言
+history ： 历史记录
+react : 组件管理
+react-dom: reactdom插入
+react-router：react路由
+webpack : 文件打包
+isomorphic-fetch：同构数据请求
+recompose ：React的一个高阶功能组件
+redux : Redux 就是用来确保 state 变化的可预测性
+
+---babel
+babel-cli :js编译
+babel-preset-es2015-node5
+
+---文章
+react如何和server交互
+https://segmentfault.com/a/1190000004436824
+
+Redux 中文文档
+http://camsong.github.io/redux-in-chinese/index.html
+
+案例
+https://github.com/voronianski/flux-comparison
+
+React使用数据抓取与路由分发的同构应用创建指南
+https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.bunqw8isj
+
+Redux文档
+http://camsong.github.io/redux-in-chinese/docs/introduction/Ecosystem.html
+
+
+Redux:
+  action:  Action 只是描述了有事情发生了这一事实，并没有指明应用如何更新 state.
+  reducer : 就是一个函数，接收旧的 state 和 action，返回新的 state。
+  			reducer 纯净非常重要。永远不要在 reducer 里做这些操作：
+  			修改传入参数；
+  			执行有副作用的操作，如 API 请求和路由跳转；
+  			调用非纯函数，如 Date.now() 或 Math.random()。
+  store : 
+
+// 每次使用 `fetch` 前都这样调用一下
+import fetch from 'isomorphic-fetch'
+在底层，它在浏览器端使用 whatwg-fetch polyfill，在服务器端使用 node-fetch，所以如果当你把应用改成同构时，并不需要改变 API 请求。
+
+
+middleware: 是指可以被嵌入在框架接收请求到产生响应过程之中的代码
+
+Redux 知识
+	redial : 数据预处理
+	connect : 链接React 和 redux
+				<Provider store> 使组件层级中的 connect() 方法都能够获得 Redux store。正常情况下，你的根组件应该嵌套在 <Provider> 中才能使用 connect() 方法。
+	compose : 从右到左来组合多个函数
+ 
