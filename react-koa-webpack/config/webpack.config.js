@@ -3,17 +3,25 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var sourcePath = path.resolve(__dirname , '../src/scripts');
-var targetPath = path.resolve(__dirname , '../build/scripts');
+// var sourcePath = path.join(__dirname , '../src/scripts');
+// var targetPath = path.join(__dirname , '../build/scripts');
 
 module.exports = {
-	entry : {
-		index : path.resolve(sourcePath , 'index.js'),
-		cart : path.resolve(sourcePath , 'cart.js')
-	},
-	output : {
-		path : targetPath,
-		filename:'[name].js'
+	// entry : {
+	// 	index : path.join(sourcePath , 'index.js'),
+	// 	cart : path.join(sourcePath , 'cart.js')
+	// },
+	watch: true,
+	// output : {
+	// 	path : targetPath,
+	// 	filename:'[name].js'
+	// },
+	resolve:{ 
+		modulesDirectories: [path.join(__dirname , '../node_modules')],
+		alias:{
+			react : 'react/dist/react.min',
+			'react-dom' : 'react-dom/dist/react-dom.min'
+		}
 	},
 	module:{
 		loaders:[
@@ -23,7 +31,8 @@ module.exports = {
 	},
 	plugins: [
 	  // Avoid publishing files when compilation fails
-	  new webpack.NoErrorsPlugin()
+	  new webpack.NoErrorsPlugin(),
+	  // new webpack.optimize.UglifyJsPlugin('*.js')
 	],
 	stats: {
 	  colors: true // Nice colored output
