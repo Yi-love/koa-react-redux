@@ -1,0 +1,43 @@
+<%- include ./layout/header.html -%>
+<style>
+	/****数量选择********/
+	.op-box{
+		width: 100%;
+	}
+	.op-box:after,
+	.op-box:before{
+		display: table;
+		content: '';
+		clear: both;
+	}
+	.op-box .op{
+		display: block;
+		width: 32px;
+		height: 32px;
+		float: left;
+		text-align: center;
+		line-height: 32px;
+		border: 1px solid #e1e1e1;
+		cursor: pointer;
+	}
+	.op-box .buynum{
+		width: 60px;
+		height: 30px;
+		outline: none;
+		float: left;
+		text-align: center;
+		border: 1px solid #e1e1e1;
+		border-left: none;
+		border-right: none;
+	}
+	.op-box .buynum:focus{
+		outline: none;
+	}
+
+</style>
+<h1>学习 <%=title%></h1>
+<!-- react -->
+<div id="cart"><%- reactHtml %></div>
+<script>window.__CART_INFO__ = <%- JSON.stringify(result)%>;</script>
+<script src="/scripts/cart.js"></script>
+<%- include ./layout/footer.html -%>
