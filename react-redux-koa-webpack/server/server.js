@@ -30,8 +30,8 @@ function *index(){
 	this.body = yield render('index' , {title:'Koa react webpack demo' , reactHtml : html});
 }
 function *cart(){
-	const store = cartStore({counter:345});
-	this.body = yield render('cart' , {title:'购物车' , reactHtml : ReactDOMServer.renderToString(<Provider store={store}><CartContainer /></Provider>) , result: {counter:345}});
+	const store = cartStore({counter:345 , isCollect:true,isDeleted:false,isSku:true,skuMap : ['颜色：红色','尺寸：30']});
+	this.body = yield render('cart' , {title:'购物车' , reactHtml : ReactDOMServer.renderToString(<Provider store={store}><CartContainer /></Provider>) , result: store.getState()});
 }
 
 app.on('error' , (err , ctx)=>{

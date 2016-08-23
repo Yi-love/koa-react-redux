@@ -1,21 +1,33 @@
-'use strict';
+export const SET_COUNTER = 'SET_COUNTER'
+export const ADD_COUNTER = 'ADD_COUNTER'
+export const SUB_COUNTER = 'SUB_COUNTER'
 
-import fetch from 'isomorphic-fetch';
+export const DELETE_GOODS = 'DELETE_GOODS'
+export const COLLECT_GOODS = 'COLLECT_GOODS'
 
-export const REQUEST_GETS = 'REQUEST_GETS';
-export const DELETED_GOODS = 'DELETED_GOODS';
-export const COLLECT_GOODS = 'COLLECT_GOODS';
-
-export function deletedGoods(goods){
+export function deleteGoods( isDeleted ){
 	return {
-		type : DELETED_GOODS,
-		goods
+		type  : DELETE_GOODS
 	}
-};
-
-export function collectDoods(goods){
+}
+export function collectGoods(isCollect){
 	return {
-		type : COLLECT_GOODS,
-		goods
+		type  : COLLECT_GOODS
 	}
-};
+}
+export function counterValue(value){
+	return {
+		type : SET_COUNTER,
+		value : value
+	}
+}
+export function counterAdd(){
+	return {
+		type : ADD_COUNTER
+	}
+}
+export function counterSub(){
+	return {
+		type : SUB_COUNTER
+	}
+}

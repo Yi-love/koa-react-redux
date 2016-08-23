@@ -1,8 +1,6 @@
-'use strict'
-
 import { createStore , applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import cartReducer from '../reducers/counter';
+import cartReducer from '../reducers/cartReducer';
 
 const createStoreWithMiddleware  = applyMiddleware(...[thunk])(createStore);
 

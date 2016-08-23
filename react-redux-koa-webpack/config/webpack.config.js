@@ -8,8 +8,8 @@ module.exports = {
 	resolve:{ 
 		modulesDirectories: [path.join(__dirname , '../node_modules')],
 		alias:{
-			react : 'react/dist/react.min',
-			'react-dom' : 'react-dom/dist/react-dom.min'
+			react : 'react/dist/react',
+			'react-dom' : 'react-dom/dist/react-dom'
 		}
 	},
 	module:{
@@ -21,7 +21,11 @@ module.exports = {
 	plugins: [
 	  // Avoid publishing files when compilation fails
 	  new webpack.NoErrorsPlugin(),
-	  // new webpack.optimize.UglifyJsPlugin('*.js')
+	  // new webpack.optimize.UglifyJsPlugin('*.js'),
+	  // new webpack.DefinePlugin({
+	  //   'process.env.NODE_ENV': JSON.stringify('development'),
+	  //   __SERVER__: true
+	  // })
 	],
 	stats: {
 	  colors: true // Nice colored output
