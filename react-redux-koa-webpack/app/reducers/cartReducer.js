@@ -1,47 +1,98 @@
 import {combineReducers} from 'redux'
 
-import {ADD_COUNTER , SUB_COUNTER , SET_COUNTER , DELETE_GOODS , COLLECT_GOODS} from '../actions/cartAction'
+import { SET_COUNTER , DELETE_GOODS , COLLECT_GOODS , SELECT_GOODS , SELECT_ALL } from '../actions/cartAction'
 
-function isDeleted(state = false , action){
+function cart(state = {carts:[], num:0 , money:0 , isAll:false } , action){
 	switch(action.type){
-		case DELETE_GOODS : 
-			return !state
-		default:
-			return state
-	}
-}
-function isCollect(state = false , action){
-	switch(action.type){
+		case DELETE_GOODS :
+			return Object.assign({} , state , {carts: state.carts.filter(function(current , key){
+				if ( key === action.id ) {
+					current.isDeleted = !current.isDeleted
+				}
+				return true
+			}) } ) 
 		case COLLECT_GOODS :
-			return !state
-		default:
-			return state
-	}
-}
-function counter(state = 0 , action ){
-	switch(action.type){
-		case ADD_COUNTER :
-			return state+1;
-		case SUB_COUNTER :
-			return state-1;
+			return Object.assign({} , state , {carts: state.carts.filter(function(current , key){
+				if ( key === action.id ) {
+					current.isCollect = !current.isCollect
+				}
+				return true
+			})} ) 
 		case SET_COUNTER :
-			return action.value;
+			return Object.assign({} , state , {carts: state.carts.filter(function(current , key){
+				if ( key === action.id ) {
+					current.num = action.value
+				}
+				return true
+			}) , num : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( state.carts[i].isChecked ){
+						result += state.carts[i].num
+					}
+				}
+				return result
+			})() , money : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( state.carts[i].isChecked ){
+						result += state.carts[i].num*state.carts[i].price
+					}
+				}
+				return result
+			})()})
+		case SELECT_GOODS :
+			return Object.assign({} , state , {carts: state.carts.filter(function(current , key){
+				if ( key === action.id ) {
+					current.isChecked = !current.isChecked
+				}
+				return true
+			}) , num : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( state.carts[i].isChecked ){
+						result += state.carts[i].num
+					}
+				}
+				return result
+			})() , money : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( state.carts[i].isChecked ){
+						result += state.carts[i].num*state.carts[i].price
+					}
+				}
+				return result	
+			})() ,isAll : (function(){
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( !state.carts[i].isChecked ){
+						return false
+					}
+				}
+				return true
+			})()})
+		case SELECT_ALL :
+			return Object.assign({} , state , {carts: state.carts.filter(function(current , key){
+				current.isChecked = true
+				return true
+			}) , num : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					result += state.carts[i].num
+				}
+				return result
+			})() , money : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					result += state.carts[i].num*state.carts[i].price
+				}
+				return result
+			})() , isAll:true})
 		default :
-			return state;
-	}
-};
-function isSku(state = false , action){
-	switch(action.type){
-		default:
 			return state
 	}
 }
-function skuMap(state = [] , action){
-	switch(action.type){
-		default:
-			return state
-	}
-}
-const cartReducer = combineReducers({isDeleted , isCollect ,counter,isSku,skuMap})
+
+const cartReducer = combineReducers({cart})
 
 export default cartReducer

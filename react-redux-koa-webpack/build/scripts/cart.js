@@ -65,7 +65,7 @@
 	
 	var _cartContanier2 = _interopRequireDefault(_cartContanier);
 	
-	var _cartStore = __webpack_require__(31);
+	var _cartStore = __webpack_require__(34);
 	
 	var _cartStore2 = _interopRequireDefault(_cartStore);
 	
@@ -21412,11 +21412,19 @@
 	
 	var _Operater2 = _interopRequireDefault(_Operater);
 	
-	var _Sku = __webpack_require__(36);
+	var _Sku = __webpack_require__(30);
 	
 	var _Sku2 = _interopRequireDefault(_Sku);
 	
-	var _cartAction = __webpack_require__(30);
+	var _CheckBox = __webpack_require__(31);
+	
+	var _CheckBox2 = _interopRequireDefault(_CheckBox);
+	
+	var _CartMenu = __webpack_require__(32);
+	
+	var _CartMenu2 = _interopRequireDefault(_CartMenu);
+	
+	var _cartAction = __webpack_require__(33);
 	
 	var cartActions = _interopRequireWildcard(_cartAction);
 	
@@ -21443,35 +21451,132 @@
 			key: 'render',
 			value: function render() {
 				var _props = this.props;
-				var counter = _props.counter;
-				var counterSub = _props.counterSub;
-				var counterAdd = _props.counterAdd;
-				var counterValue = _props.counterValue;
-				var isDeleted = _props.isDeleted;
-				var isCollect = _props.isCollect;
 				var deleteGoods = _props.deleteGoods;
 				var collectGoods = _props.collectGoods;
-				var isSku = _props.isSku;
-				var skuMap = _props.skuMap;
+				var selectGoods = _props.selectGoods;
+				var counterValue = _props.counterValue;
+				var selectAll = _props.selectAll;
+				var getData = _props.getData;
+				var cart = _props.cart;
+				var carts = cart.carts;
+				var isAll = cart.isAll;
+				var num = cart.num;
+				var money = cart.money;
 	
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(_Sku2.default, { isSku: isSku, skuMap: skuMap })
+						'table',
+						{ className: 'cart' },
+						_react2.default.createElement(
+							'thead',
+							null,
+							_react2.default.createElement(
+								'tr',
+								null,
+								_react2.default.createElement(
+									'td',
+									null,
+									'选择'
+								),
+								_react2.default.createElement('td', null),
+								_react2.default.createElement(
+									'td',
+									null,
+									'名称'
+								),
+								_react2.default.createElement(
+									'td',
+									null,
+									'价格'
+								),
+								_react2.default.createElement(
+									'td',
+									null,
+									'原价'
+								),
+								_react2.default.createElement(
+									'td',
+									null,
+									'描述'
+								),
+								_react2.default.createElement(
+									'td',
+									null,
+									'数量'
+								),
+								_react2.default.createElement(
+									'td',
+									null,
+									'操作'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'tbody',
+							null,
+							carts && carts.map(function (car, key) {
+								return _react2.default.createElement(
+									'tr',
+									{ key: key },
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement(_CheckBox2.default, { isChecked: car.isChecked, id: key, selectGoods: selectGoods })
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement('img', { src: car.thumb, width: '60', height: '60' })
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement(
+											'h4',
+											null,
+											car.title
+										)
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement(
+											'div',
+											null,
+											car.price
+										)
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement(
+											'div',
+											null,
+											car.original
+										)
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement(_Sku2.default, { isSku: car.isSku, skuMap: car.skuMap })
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement(_Counter2.default, { counter: car.num, counterValue: counterValue, id: key })
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_react2.default.createElement(_Operater2.default, { isDeleted: car.isDeleted, isCollect: car.isCollect, id: key, deleteGoods: deleteGoods, collectGoods: collectGoods })
+									)
+								);
+							})
+						)
 					),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(_Counter2.default, { counter: counter, counterValue: counterValue, counterSub: counterSub, counterAdd: counterAdd })
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(_Operater2.default, { isDeleted: isDeleted, isCollect: isCollect, deleteGoods: deleteGoods, collectGoods: collectGoods })
-					)
+					_react2.default.createElement(_CartMenu2.default, { isAll: isAll, selectAll: selectAll, num: num, money: money })
 				);
 			}
 		}]);
@@ -21482,34 +21587,15 @@
 	;
 	
 	CartContainer.propTypes = {
-		counter: _react.PropTypes.number.isRequired,
-		counterValue: _react.PropTypes.func.isRequired,
-		counterSub: _react.PropTypes.func.isRequired,
-		counterAdd: _react.PropTypes.func.isRequired,
-	
-		isDeleted: _react.PropTypes.bool.isRequired,
-		isCollect: _react.PropTypes.bool.isRequired,
-		deleteGoods: _react.PropTypes.func.isRequired,
-		collectGoods: _react.PropTypes.func.isRequired,
-	
-		isSku: _react.PropTypes.bool.isRequired,
-		skuMap: _react.PropTypes.array.isRequired
+		cart: _react.PropTypes.object.isRequired
 	};
 	
 	//将state.counter绑定到props的counter
 	function mapStateToProps(state) {
-		var isDeleted = state.isDeleted;
-		var isCollect = state.isCollect;
-		var counter = state.counter;
-		var isSku = state.isSku;
-		var skuMap = state.skuMap;
+		var cart = state.cart;
 	
 		return {
-			isDeleted: isDeleted,
-			isCollect: isCollect,
-			counter: counter,
-			isSku: isSku,
-			skuMap: skuMap
+			cart: cart
 		};
 	}
 	//将action的所有方法绑定到props上
@@ -21557,7 +21643,7 @@
 			value: function onChange(e) {
 				var value = +e.target.value.replace(/[^\d]/g, '');
 				if (typeof value === 'number') {
-					this.props.counterValue(value);
+					this.props.counterValue(this.props.id, value);
 				}
 			}
 		}, {
@@ -21566,25 +21652,32 @@
 				return nextProps.counter != this.props.counter;
 			}
 		}, {
+			key: 'counterSub',
+			value: function counterSub() {
+				if (this.props.counter - 1 >= 1) this.props.counterValue(this.props.id, this.props.counter - 1);
+			}
+		}, {
+			key: 'counterAdd',
+			value: function counterAdd() {
+				if (this.props.counter + 1 <= 100) this.props.counterValue(this.props.id, this.props.counter + 1);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				var _props = this.props;
-				var counter = _props.counter;
-				var counterSub = _props.counterSub;
-				var counterAdd = _props.counterAdd;
+				var counter = this.props.counter;
 	
 				return _react2.default.createElement(
 					'div',
 					{ className: 'op-box' },
 					_react2.default.createElement(
 						'span',
-						{ className: 'op', onClick: counterSub.bind(this) },
+						{ className: 'op', onClick: this.counterSub.bind(this) },
 						'-'
 					),
 					_react2.default.createElement('input', { className: 'buynum', type: 'text', value: counter, onChange: this.onChange.bind(this) }),
 					_react2.default.createElement(
 						'span',
-						{ className: 'op', onClick: counterAdd.bind(this) },
+						{ className: 'op', onClick: this.counterAdd.bind(this) },
 						'+'
 					)
 				);
@@ -21599,8 +21692,6 @@
 	
 	Counter.propTypes = {
 		counterValue: _react.PropTypes.func.isRequired,
-		counterSub: _react.PropTypes.func.isRequired,
-		counterAdd: _react.PropTypes.func.isRequired,
 		counter: _react.PropTypes.number.isRequired
 	};
 
@@ -21638,13 +21729,21 @@
 		}
 	
 		_createClass(Operater, [{
+			key: 'isCollectGoods',
+			value: function isCollectGoods() {
+				this.props.collectGoods(this.props.id);
+			}
+		}, {
+			key: 'isDeleteGoods',
+			value: function isDeleteGoods() {
+				this.props.deleteGoods(this.props.id);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var _props = this.props;
 				var isCollect = _props.isCollect;
 				var isDeleted = _props.isDeleted;
-				var collectGoods = _props.collectGoods;
-				var deleteGoods = _props.deleteGoods;
 	
 				var collecttxt = '收藏',
 				    collectcss = 'collect',
@@ -21658,12 +21757,12 @@
 					{ className: 'item-opbox' },
 					_react2.default.createElement(
 						'span',
-						{ className: 'op-i ' + collectcss, onClick: collectGoods },
+						{ className: 'op-i ' + collectcss, onClick: this.isCollectGoods.bind(this) },
 						collecttxt
 					),
 					_react2.default.createElement(
 						'span',
-						{ className: 'op-i ' + delectcss, onClick: deleteGoods },
+						{ className: 'op-i ' + delectcss, onClick: this.isDeleteGoods.bind(this) },
 						deletetxt
 					)
 				);
@@ -21685,187 +21784,6 @@
 
 /***/ },
 /* 30 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.deleteGoods = deleteGoods;
-	exports.collectGoods = collectGoods;
-	exports.counterValue = counterValue;
-	exports.counterAdd = counterAdd;
-	exports.counterSub = counterSub;
-	var SET_COUNTER = exports.SET_COUNTER = 'SET_COUNTER';
-	var ADD_COUNTER = exports.ADD_COUNTER = 'ADD_COUNTER';
-	var SUB_COUNTER = exports.SUB_COUNTER = 'SUB_COUNTER';
-	
-	var DELETE_GOODS = exports.DELETE_GOODS = 'DELETE_GOODS';
-	var COLLECT_GOODS = exports.COLLECT_GOODS = 'COLLECT_GOODS';
-	
-	function deleteGoods(isDeleted) {
-		return {
-			type: DELETE_GOODS
-		};
-	}
-	function collectGoods(isCollect) {
-		return {
-			type: COLLECT_GOODS
-		};
-	}
-	function counterValue(value) {
-		return {
-			type: SET_COUNTER,
-			value: value
-		};
-	}
-	function counterAdd() {
-		return {
-			type: ADD_COUNTER
-		};
-	}
-	function counterSub() {
-		return {
-			type: SUB_COUNTER
-		};
-	}
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = cartStore;
-	
-	var _redux = __webpack_require__(11);
-	
-	var _reduxThunk = __webpack_require__(32);
-	
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-	
-	var _cartReducer = __webpack_require__(33);
-	
-	var _cartReducer2 = _interopRequireDefault(_cartReducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var createStoreWithMiddleware = _redux.applyMiddleware.apply(undefined, [_reduxThunk2.default])(_redux.createStore);
-	
-	function cartStore(initialStore) {
-		var store = createStoreWithMiddleware(_cartReducer2.default, initialStore);
-		return store;
-	}
-
-/***/ },
-/* 32 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	function createThunkMiddleware(extraArgument) {
-	  return function (_ref) {
-	    var dispatch = _ref.dispatch;
-	    var getState = _ref.getState;
-	    return function (next) {
-	      return function (action) {
-	        if (typeof action === 'function') {
-	          return action(dispatch, getState, extraArgument);
-	        }
-	
-	        return next(action);
-	      };
-	    };
-	  };
-	}
-	
-	var thunk = createThunkMiddleware();
-	thunk.withExtraArgument = createThunkMiddleware;
-	
-	exports['default'] = thunk;
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _redux = __webpack_require__(11);
-	
-	var _cartAction = __webpack_require__(30);
-	
-	function isDeleted() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-		var action = arguments[1];
-	
-		switch (action.type) {
-			case _cartAction.DELETE_GOODS:
-				return !state;
-			default:
-				return state;
-		}
-	}
-	function isCollect() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-		var action = arguments[1];
-	
-		switch (action.type) {
-			case _cartAction.COLLECT_GOODS:
-				return !state;
-			default:
-				return state;
-		}
-	}
-	function counter() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
-		var action = arguments[1];
-	
-		switch (action.type) {
-			case _cartAction.ADD_COUNTER:
-				return state + 1;
-			case _cartAction.SUB_COUNTER:
-				return state - 1;
-			case _cartAction.SET_COUNTER:
-				return action.value;
-			default:
-				return state;
-		}
-	};
-	function isSku() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-		var action = arguments[1];
-	
-		switch (action.type) {
-			default:
-				return state;
-		}
-	}
-	function skuMap() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-		var action = arguments[1];
-	
-		switch (action.type) {
-			default:
-				return state;
-		}
-	}
-	var cartReducer = (0, _redux.combineReducers)({ isDeleted: isDeleted, isCollect: isCollect, counter: counter, isSku: isSku, skuMap: skuMap });
-	
-	exports.default = cartReducer;
-
-/***/ },
-/* 34 */,
-/* 35 */,
-/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21921,9 +21839,366 @@
 	
 	
 	Sku.propTypes = {
-		isSku: _react.PropTypes.bool.isRequired,
-		skuMap: _react.PropTypes.array.isRequired
+		isSku: _react.PropTypes.bool.isRequired
 	};
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CheckBox = function (_Component) {
+		_inherits(CheckBox, _Component);
+	
+		function CheckBox(props) {
+			_classCallCheck(this, CheckBox);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckBox).call(this, props));
+		}
+	
+		_createClass(CheckBox, [{
+			key: "handleChecked",
+			value: function handleChecked(e) {
+				this.props.selectGoods(this.props.id);
+			}
+		}, {
+			key: "shouldComponentUpdate",
+			value: function shouldComponentUpdate(nextProps, nextState) {
+				return nextProps.isChecked != this.props.isChecked;
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement("input", { type: "checkbox", checked: this.props.isChecked, onChange: this.handleChecked.bind(this) });
+			}
+		}]);
+	
+		return CheckBox;
+	}(_react.Component);
+	
+	exports.default = CheckBox;
+	
+	
+	CheckBox.propTypes = {
+		isChecked: _react.PropTypes.bool.isRequired,
+		selectGoods: _react.PropTypes.func.isRequired
+	};
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CartMenu = function (_React$Component) {
+		_inherits(CartMenu, _React$Component);
+	
+		function CartMenu(props) {
+			_classCallCheck(this, CartMenu);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(CartMenu).call(this, props));
+		}
+	
+		_createClass(CartMenu, [{
+			key: "render",
+			value: function render() {
+				var selectAll = this.props.selectAll;
+	
+				return _react2.default.createElement(
+					"div",
+					{ className: "cart-allpay" },
+					_react2.default.createElement(
+						"label",
+						null,
+						_react2.default.createElement("input", { type: "checkbox", checked: this.props.isAll, onChange: selectAll }),
+						"全选"
+					),
+					_react2.default.createElement(
+						"span",
+						{ className: "num" },
+						this.props.num,
+						"个"
+					),
+					_react2.default.createElement(
+						"span",
+						{ className: "pay" },
+						this.props.money,
+						"元"
+					)
+				);
+			}
+		}]);
+	
+		return CartMenu;
+	}(_react2.default.Component);
+	
+	exports.default = CartMenu;
+	
+	CartMenu.propTypes = {
+		isAll: _react.PropTypes.bool.isRequired,
+		num: _react.PropTypes.number.isRequired,
+		money: _react.PropTypes.number.isRequired,
+		selectAll: _react.PropTypes.func.isRequired
+	};
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.deleteGoods = deleteGoods;
+	exports.collectGoods = collectGoods;
+	exports.counterValue = counterValue;
+	exports.selectGoods = selectGoods;
+	exports.selectAll = selectAll;
+	var SET_COUNTER = exports.SET_COUNTER = 'SET_COUNTER';
+	var SELECT_GOODS = exports.SELECT_GOODS = 'SELECT_GOODS';
+	var DELETE_GOODS = exports.DELETE_GOODS = 'DELETE_GOODS';
+	var COLLECT_GOODS = exports.COLLECT_GOODS = 'COLLECT_GOODS';
+	var SELECT_ALL = exports.SELECT_ALL = 'SELECT_ALL';
+	
+	function deleteGoods(id) {
+		return {
+			type: DELETE_GOODS,
+			id: id
+		};
+	}
+	function collectGoods(id) {
+		return {
+			type: COLLECT_GOODS,
+			id: id
+		};
+	}
+	function counterValue(id, value) {
+		return {
+			type: SET_COUNTER,
+			value: value,
+			id: id
+		};
+	}
+	function selectGoods(id) {
+		return {
+			type: SELECT_GOODS,
+			id: id
+		};
+	}
+	function selectAll(id) {
+		return {
+			type: SELECT_ALL,
+			id: id
+		};
+	}
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = cartStore;
+	
+	var _redux = __webpack_require__(11);
+	
+	var _reduxThunk = __webpack_require__(35);
+	
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	
+	var _cartReducer = __webpack_require__(36);
+	
+	var _cartReducer2 = _interopRequireDefault(_cartReducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var createStoreWithMiddleware = _redux.applyMiddleware.apply(undefined, [_reduxThunk2.default])(_redux.createStore);
+	
+	function cartStore(initialStore) {
+		var store = createStoreWithMiddleware(_cartReducer2.default, initialStore);
+		return store;
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+	
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+	
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+	
+	exports['default'] = thunk;
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _redux = __webpack_require__(11);
+	
+	var _cartAction = __webpack_require__(33);
+	
+	function cart() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { carts: [], num: 0, money: 0, isAll: false } : arguments[0];
+		var action = arguments[1];
+	
+		switch (action.type) {
+			case _cartAction.DELETE_GOODS:
+				return Object.assign({}, state, { carts: state.carts.filter(function (current, key) {
+						if (key === action.id) {
+							current.isDeleted = !current.isDeleted;
+						}
+						return true;
+					}) });
+			case _cartAction.COLLECT_GOODS:
+				return Object.assign({}, state, { carts: state.carts.filter(function (current, key) {
+						if (key === action.id) {
+							current.isCollect = !current.isCollect;
+						}
+						return true;
+					}) });
+			case _cartAction.SET_COUNTER:
+				return Object.assign({}, state, { carts: state.carts.filter(function (current, key) {
+						if (key === action.id) {
+							current.num = action.value;
+						}
+						return true;
+					}), num: function () {
+						var result = 0;
+						for (var i = 0; i < state.carts.length; i++) {
+							if (state.carts[i].isChecked) {
+								result += state.carts[i].num;
+							}
+						}
+						return result;
+					}(), money: function () {
+						var result = 0;
+						for (var i = 0; i < state.carts.length; i++) {
+							if (state.carts[i].isChecked) {
+								result += state.carts[i].num * state.carts[i].price;
+							}
+						}
+						return result;
+					}() });
+			case _cartAction.SELECT_GOODS:
+				return Object.assign({}, state, { carts: state.carts.filter(function (current, key) {
+						if (key === action.id) {
+							current.isChecked = !current.isChecked;
+						}
+						return true;
+					}), num: function () {
+						var result = 0;
+						for (var i = 0; i < state.carts.length; i++) {
+							if (state.carts[i].isChecked) {
+								result += state.carts[i].num;
+							}
+						}
+						return result;
+					}(), money: function () {
+						var result = 0;
+						for (var i = 0; i < state.carts.length; i++) {
+							if (state.carts[i].isChecked) {
+								result += state.carts[i].num * state.carts[i].price;
+							}
+						}
+						return result;
+					}(), isAll: function () {
+						for (var i = 0; i < state.carts.length; i++) {
+							if (!state.carts[i].isChecked) {
+								return false;
+							}
+						}
+						return true;
+					}() });
+			case _cartAction.SELECT_ALL:
+				return Object.assign({}, state, { carts: state.carts.filter(function (current, key) {
+						current.isChecked = true;
+						return true;
+					}), num: function () {
+						var result = 0;
+						for (var i = 0; i < state.carts.length; i++) {
+							result += state.carts[i].num;
+						}
+						return result;
+					}(), money: function () {
+						var result = 0;
+						for (var i = 0; i < state.carts.length; i++) {
+							result += state.carts[i].num * state.carts[i].price;
+						}
+						return result;
+					}(), isAll: true });
+			default:
+				return state;
+		}
+	}
+	
+	var cartReducer = (0, _redux.combineReducers)({ cart: cart });
+	
+	exports.default = cartReducer;
 
 /***/ }
 /******/ ]);

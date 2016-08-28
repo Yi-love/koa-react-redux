@@ -15,6 +15,5 @@ export default class Sku extends Component{
 }
 
 Sku.propTypes = {
-	isSku : PropTypes.bool.isRequired,
-	skuMap: PropTypes.array.isRequired
+	isSku : PropTypes.bool.isRequired
 }
