@@ -5,12 +5,42 @@ import { SET_COUNTER , DELETE_GOODS , COLLECT_GOODS , SELECT_GOODS , SELECT_ALL 
 function cart(state = {carts:[], num:0 , money:0 , isAll:false } , action){
 	switch(action.type){
 		case DELETE_GOODS :
+		console.log(action)
 			return Object.assign({} , state , {carts: state.carts.filter(function(current , key){
-				if ( key === action.id ) {
-					current.isDeleted = !current.isDeleted
+				return !(key === action.id && action.isDeleted) 
+			})  , num : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( action.isDeleted && i === action.id ) {
+						continue;
+					}
+					if ( state.carts[i].isChecked){
+						result += state.carts[i].num
+					}
+				}
+				return result
+			})() , money : (function(){
+				var result = 0
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( action.isDeleted && i === action.id ) {
+						continue;
+					}
+					if ( state.carts[i].isChecked ){
+						result += state.carts[i].num*state.carts[i].price
+					}
+				}
+				return result
+			})(),isAll : (function(){
+				for (var i = 0; i < state.carts.length; i++) {
+					if ( action.isDeleted && i === action.id ) {
+						continue;
+					}
+					if ( !state.carts[i].isChecked ){
+						return false
+					}
 				}
 				return true
-			}) } ) 
+			})()} ) 
 		case COLLECT_GOODS :
 			return Object.assign({} , state , {carts: state.carts.filter(function(current , key){
 				if ( key === action.id ) {
