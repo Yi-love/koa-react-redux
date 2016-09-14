@@ -38,7 +38,7 @@ function *cart(){
 		{
 			isChecked: false,
 			isSku : true,
-			isDeleted : true,
+			isDeleted : false,
 			isCollect : true,
 			thumb : './images/02.png',
 			title : '拖把',
@@ -52,7 +52,7 @@ function *cart(){
 		{
 			isChecked: true,
 			isSku : false,
-			isDeleted : true,
+			isDeleted : false,
 			isCollect : false,
 			thumb : './images/03.png',
 			title : '这个太牛逼了',

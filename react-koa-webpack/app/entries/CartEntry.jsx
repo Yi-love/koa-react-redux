@@ -51,7 +51,6 @@ export default class CartEntry extends React.Component{
 		 return {num : num >0 ? num : 0 , money : money > 0 ? money : 0.00 , isAll:isAll}
 	}
 	render(){
-		console.log('render start');
 		return (<div>
 				<CartItemWrapper carts={this.state.carts} onChange={this.handleChange.bind(this)} />
 				<CartMenu isAll={this.state.isAll} isCheckAll={this.isCheckAll.bind(this)} num={this.state.num} money={this.state.money} onClick={this.handleClick.bind(this)} />
