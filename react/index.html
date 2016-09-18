@@ -171,7 +171,8 @@
 		var CartMenu = React.createClass({
 			render : function(){
 				return (<div className="cart-allpay">
-					<label><input type="checkbox" checked={this.props.isAll} onChange={this.props.isCheckAll} />全选</label><span className="num">{this.props.num}个</span> <span className="pay">{this.props.money}元</span><button onClick={this.props.onClick}>获取数据</button>
+					<label><input type="checkbox" checked={this.props.isAll} onChange={this.props.isCheckAll} />全选</label>
+					<span className="num">{this.props.num}个</span> <span className="pay">{this.props.money}元</span><button onClick={this.props.onClick}>获取数据</button>
 					</div>)
 			}
 		});
