@@ -87,7 +87,9 @@
 			},
     		render: function() {
     			return (
-    				<div className="op-box"><span className="op" onClick={this.numSub}>-</span><input className="buynum" type="text" value={this.props.state.num || 1} onChange={this.onChange} /><span className="op" onClick={this.numAdd}>+</span></div>
+    				<div className="op-box"><span className="op" onClick={this.numSub}>-</span>
+    				<input className="buynum" type="text" value={this.props.state.num || 1} onChange={this.onChange} />
+    				<span className="op" onClick={this.numAdd}>+</span></div>
     			);
     		}
     	});
