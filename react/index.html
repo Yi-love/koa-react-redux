@@ -16,7 +16,9 @@
     	 * @return {[type]} [description]
     	 */
 	    function getCartData() {
-	    	return  [{
+	    	return  new Promise(function(resolve, reject) {
+	    		setTimeout(function(){
+	    			resolve([{
 			    		isChecked: true,
 			    		isSku : true,
 			    		isDeleted : false,
@@ -58,7 +60,9 @@
 			    		original : 21000.99,
 			    		skuMap : false
 			    	}
-			    ];
+			    ]);
+	    		} , 3000);
+	    	});
 	    };
 	    /**
 	     * [NumberInput   数量选择]
@@ -178,10 +182,16 @@
 				return {carts:[] , num : 0 , money: 0 ,isAll : false};
 			},
 			componentWillMount: function(){
-				var carts = this.props.carts;
+				var carts = this.state.carts;
 				var data = this.computed(carts);
 				data.carts = carts;
 				this.handleSet(data);
+			},
+			componentDidMount:function() {
+				var that = this;
+				getCartData().then(function(carts){
+					that.setState({carts: carts});
+				});
 			},
 			handleChange : function(key ,props, value){
 				var carts = this.state.carts;
@@ -229,8 +239,7 @@
 		 * [CART_INFO 渲染购物车]
 		 * @type {[type]}
 		 */
-		var CART_INFO = getCartData();
-		ReactDOM.render(<Cart carts={CART_INFO} /> , document.getElementById('cart'));
+		ReactDOM.render(<Cart /> , document.getElementById('cart'));
     </script>
 </body>
 </html>
