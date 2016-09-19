@@ -194,6 +194,9 @@
 				var that = this;
 				getCartData().then(function(carts){
 					that.setState({carts: carts});
+					var data = that.computed(carts);
+					data.carts = carts;
+					that.handleSet(data);
 				});
 			},
 			handleChange : function(key ,props, value){
