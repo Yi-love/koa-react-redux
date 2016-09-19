@@ -6,7 +6,7 @@ running in browser.
 
 ### React-koa-weback
 
-dependent `Node` evironment.
+dependent `Node` environment.
 
 first:
 ```
@@ -22,7 +22,7 @@ last:
 open in browser url : `localhost:3000/cart`
 
 ### React-redux-koa-weback
-dependent `Node` evironment.
+dependent `Node` environment.
 
 first:
 ```
